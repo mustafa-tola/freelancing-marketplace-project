@@ -9,3 +9,9 @@
 **2.** /retrieveBuyers gets all the buyers from the database.
 
 **3.** /retrieveBuyer/:email gets a single buyer from the database by passing an email(abc@gmail.com) after retrieveBuyer/ to obtain the buyer with the respective email
+
+**4.** /registerSeller registers a new seller in our database.You have to attach a json object with required fields (email,name,phone,service) and sent to this endpoint to create a new seller in the database
+
+**5.** /retrieveSellers gets all the sellers from the database.
+
+**3.** /retrieveSeller/:email gets a single seller from the database by passing an email(abc@gmail.com) after retrieveSeller/ to obtain the seller with the respective email
