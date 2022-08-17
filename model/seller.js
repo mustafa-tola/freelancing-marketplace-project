@@ -1,4 +1,5 @@
 const mongoose = require("mongoose")
+const { orderSchema } = require("./order")
 
 const sellerSchema = new mongoose.Schema({
     name: { type: String, required: true },
@@ -6,7 +7,7 @@ const sellerSchema = new mongoose.Schema({
     phone: { type: Number, required: true },
     address: { type: String },
     service: { type: String, required: true },
-    completedOrders: { type: [String] },
+    orders: { type: [orderSchema] },
     rating: {type: Number}
 }, { collection: "sellers" }) //creating a schema for the buyers collection
 

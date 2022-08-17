@@ -16,6 +16,7 @@ app.use(cors())
 
 require("./routes/buyer.routes")(app)
 require("./routes/seller.routes")(app)
+require("./routes/order.routes")(app)
 
 app.listen(9999,() => {
     console.log('Server up at 9999')
