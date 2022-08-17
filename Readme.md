@@ -24,4 +24,10 @@
 
 **10.** /updateOrderStatus/:orderId updates the status of order for the given id(abcdef12345) after updateOrderStatus/ to update status of order for an order id
 
+**11.** /registerProject registers a new project in our database.You have to attach a json object with required fields (title,description,category,price,duration,buyerId) and sent to this endpoint to create a new project in the database
+
+**12.** /retrieveProjects gets all the projects from the database.
+
+**13.** /retrieveProject/:buyerId gets a single project from the database by passing an buyer id(abcdef12345) after retrieveProject/ to obtain the project with the respective buyerId
+
 **Note: -** In seller entity,rating attribute refers to the rating given to seller in its last project.
