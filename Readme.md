@@ -23,3 +23,5 @@
 **9.** /retrieveOrder/:id gets the details of an order with given id(abcdef12345) after retrieveOrder/ to obtain order details for an id
 
 **10.** /updateOrderStatus/:orderId updates the status of order for the given id(abcdef12345) after updateOrderStatus/ to update status of order for an order id
+
+**Note: -** In seller entity,rating attribute refers to the rating given to seller in its last project.
