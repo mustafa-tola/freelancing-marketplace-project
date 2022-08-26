@@ -19,7 +19,7 @@ const addingOrder = (req, res) => { //creating a post endpoint on /api/registerO
     }) //creating a new order object
     order.save()
         .then(data => {
-            sellerModel.findByIdAndUpdate(req.body.sellerId, { $push: { orders: order } }, (err, data) => {
+            sellerModel.findByIdAndUpdate(req.body.sellerId, { $push: { orders: order._id } }, (err, data) => {
                 if (err) {
                     console.log(err.message)
                 }
@@ -36,23 +36,31 @@ const addingOrder = (req, res) => { //creating a post endpoint on /api/registerO
 }
 
 const retrieveOrdersOfASeller = (req, res) => {
-    sellerModel.find({ email: req.params.email }, "orders")
-        .then(seller => {
-            if (!seller) {
+    sellerModel.find({ email: req.params.email },"orders")
+        .then(id => {
+            if (!id) {
                 return res.status(404).send({
-                    message: "Buyer not found with email " + req.params.email
+                    message: "Orders not found with email " + req.params.email
                 })
             }
-            res.send(seller)
+            orderFunc.orderModel.find({_id: {$in: id[0]["orders"]}})
+                .then((orders) => {
+                    res.send("Orders "+orders)
+                })
+                .catch((err) => {
+                    console.log(err.message)
+                })
         })
         .catch(err => {
             if (err.kind == "ObjectId") {
                 return res.status(404).send({
-                    message: "Buyer not found with email " + req.params.email
+                    message: "Order not found with email " + req.params.email
+                    // message: err.message
                 })
             }
             return res.status(500).send({
-                message: "Error retrieving buyer with email " + req.params.email
+                message: "Error retrieving orders with email " + req.params.email
+                // message: err.message
             })
         })
 }
@@ -82,13 +90,7 @@ const retrieveOrder = (req, res) => {
 const updateOrderStatus = (req, res) => {
     orderFunc.orderModel.findByIdAndUpdate(req.params.orderId, { status: req.body.status })
         .then((order) => {
-            sellerModel.findOneAndUpdate({ _id: order.sellerId, "orders._id": req.params.orderId }, { $set: { "orders.$.status": req.body.status, rating: req.body.rating } })
-                .then((seller) => {
-                    return res.json(seller)
-                })
-                .catch((err) => {
-                    return res.json({ message: err })
-                })
+           res.send(order)
         })
         .catch((err) => {
             if (err.kind == "ObjectId") {

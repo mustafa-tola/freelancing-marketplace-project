@@ -7,7 +7,7 @@ const sellerSchema = new mongoose.Schema({
     phone: { type: Number, required: true },
     address: { type: String },
     service: { type: String, required: true },
-    orders: { type: [orderSchema] },
+    orders: { type: [String] },
     rating: {type: Number}
 }, { collection: "sellers" }) //creating a schema for the buyers collection
 
