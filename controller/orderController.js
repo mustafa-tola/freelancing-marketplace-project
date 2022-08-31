@@ -36,16 +36,19 @@ const addingOrder = (req, res) => { //creating a post endpoint on /api/registerO
 }
 
 const retrieveOrdersOfASeller = (req, res) => {
-    sellerModel.find({ email: req.params.email },"orders")
+    sellerModel.find({ email: req.params.email }, "orders")
         .then(id => {
             if (!id) {
                 return res.status(404).send({
                     message: "Orders not found with email " + req.params.email
                 })
             }
-            orderFunc.orderModel.find({_id: {$in: id[0]["orders"]}})
+            ids = []
+            id.map(obj => ids.push(obj["orders"]))
+            console.log(ids)
+            orderFunc.orderModel.find({ _id: { $in: ids } })
                 .then((orders) => {
-                    res.send("Orders "+orders)
+                    res.send("Orders " + orders)
                 })
                 .catch((err) => {
                     console.log(err.message)
@@ -90,7 +93,14 @@ const retrieveOrder = (req, res) => {
 const updateOrderStatus = (req, res) => {
     orderFunc.orderModel.findByIdAndUpdate(req.params.orderId, { status: req.body.status })
         .then((order) => {
-           res.send(order)
+            //    res.send(order["sellerId"])
+            sellerModel.findByIdAndUpdate(order["sellerId"], { rating: req.body.rating })
+                .then(seller => {
+                    res.send(seller)
+                })
+                .catch((err) => {
+                    res.send("Error: "+err.message)
+                })
         })
         .catch((err) => {
             if (err.kind == "ObjectId") {
