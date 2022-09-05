@@ -1,15 +1,15 @@
 const express = require("express")
 const mongoose = require("mongoose")
 const cors = require("cors")
-
+require('dotenv').config()
 const { url } = require("./config/db.config")
 
 const app = express() //making a new server
 app.use(express.json()) //telling the server that data incoming and outgoing will be of json type
-mongoose.connect(url).then(() => {
+mongoose.connect(process.env.REACT_APP_MONGODB_DEPLOYMENT_URL).then(() => {
     console.log("Successfully connected to the database");    
 }).catch(err => {
-    console.log('Could not connect to the database. Exiting now...', err);
+    console.log('Could not connect to the database.Exiting now...', err);
     process.exit();
 }); //the second parameters will help us in removing warnings
 app.use(cors())
