@@ -15,7 +15,8 @@ const addingOrder = (req, res) => { //creating a post endpoint on /api/registerO
         duration: req.body.duration,
         status: "Ongoing",
         buyerId: req.body.buyerId,
-        sellerId: req.body.sellerId
+        sellerId: req.body.sellerId,
+        file: ""
     }) //creating a new order object
     order.save()
         .then(data => {
