@@ -19,7 +19,7 @@ const addFile = (req,res,next) => { //pass the order id while calling this apis 
 }
 
 const getOrderFile = (req,res,next) => { //pass the file name while calling this apis route
-    gfs.openDownloadStreamByName(req.params.name).pipe(fs.createWriteStream(__dirname+"\\downloadFile"+path.extname(req.params.name)))
+    gfs.openDownloadStream(req.params.name).pipe(fs.createWriteStream(__dirname+"\\downloadFile"+path.extname(req.params.name)))
     return res.send("File downloaded on this location: - "+__dirname);
 }
 
@@ -37,5 +37,5 @@ const deleteFile = (req,res,next) => { //pass the file id as well as order id wh
 module.exports = {
     addFile,
     getOrderFile,
-    deleteFile
+    deleteFile,
 }
